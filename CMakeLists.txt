@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 project(paroli LANGUAGES CXX)
+add_compile_definitions(SPDLOG_FMT_EXTERNAL=0)
 
 option(USE_RKNN "Enable RKNN for accelerated inference" OFF)
 
@@ -20,8 +21,9 @@ if (PIPER_PHONEMIZE_ROOT STREQUAL "")
     message(FATAL_ERROR "PIPER_PHONEMIZE_ROOT must be set")
 endif()
 
-include_directories(${PIPER_PHONEMIZE_ROOT}/include)
-link_directories(${PIPER_PHONEMIZE_ROOT}/lib)
+include_directories(${PIPER_PHONEMIZE_ROOT}/install/include)
+include_directories(${PIPER_PHONEMIZE_ROOT}/install/include/piper-phonemize)
+link_directories(${PIPER_PHONEMIZE_ROOT}/install/lib)
 
 find_package(Drogon REQUIRED)
 find_package(fmt REQUIRED)
